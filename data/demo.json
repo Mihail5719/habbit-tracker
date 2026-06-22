@@ -1,0 +1,33 @@
+[
+  {
+    "id": 1,
+    "icon": "sport",
+    "name": "Отжимания",
+    "target": 10,
+    "category": "sport",
+    "days": [
+      { "comment": "Первый подход всегда даётся тяжело" },
+      { "comment": "Второй день уже проще" }
+    ]
+  },
+  {
+    "id": 2,
+    "icon": "food",
+    "name": "Правильное питание",
+    "target": 10,
+    "category": "food",
+    "days": [{ "comment": "Круто!" }]
+  },
+  {
+    "id": 3,
+    "icon": "water",
+    "name": "Пить воду",
+    "target": 10,
+    "category": "water",
+    "days": [
+      { "comment": "Полет нормальный" },
+      { "comment": "Легко" },
+      { "comment": "Вошло в привычку" }
+    ]
+  }
+]

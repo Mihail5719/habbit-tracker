@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Habbit App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles/main.css" />
+</head>
+
+<body>
+    <div class="app">
+        <div class="panel">
+            <img class="logo" src="/images/logo.svg" alt="Логотип Habbit App" />
+            <nav class="menu">
+                <div class="menu__list"></div>
+                <button class="menu__add" id="add-habbit-btn">
+                    <img src="/images/add.svg" alt="Добавить привычку" />
+                </button>
+                <!-- Фильтр по категориям -->
+                <div class="menu__filter">
+                    <button class="filter-btn filter-btn_active" data-filter="all">Все</button>
+                    <button class="filter-btn" data-filter="sport">🏋️</button>
+                    <button class="filter-btn" data-filter="food">🥗</button>
+                    <button class="filter-btn" data-filter="water">💧</button>
+                    <button class="filter-btn" data-filter="study">📚</button>
+                    <button class="filter-btn" data-filter="other">🎯</button>
+                </div>
+                <!-- ✅ Кнопка статистики -->
+                <button class="menu__stats" id="stats-btn" title="Статистика">📊 Статистика</button>
+                <!-- ✅ Кнопки экспорта и импорта -->
+                <div class="menu__actions">
+                    <button class="action-btn" id="export-btn" title="Скачать резервную копию">📤 Экспорт</button>
+                    <button class="action-btn" id="import-btn" title="Загрузить данные из файла">📥 Импорт</button>
+                    <!-- Скрытое поле для выбора файла -->
+                    <input type="file" id="import-file" accept=".json" hidden>
+                </div>
+            </nav>
+        </div>
+        <div class="content">
+            <header>
+                <h1 class="h1">-</h1>
+                <div class="progress">
+                    <div class="progress__text">
+                        <div class="progress__name">Прогресс</div>
+                        <div class="progress__percent">%</div>
+                    </div>
+                    <div class="progress__bar">
+                        <div class="progress__cover-bar"></div>
+                    </div>
+                </div>
+            </header>
+            <main>
+                <div id="days"></div>
+                <div class="habbit">
+                    <div class="habbit__day">День _</div>
+                    <form class="habbit__form" id="add-day-form">
+                        <input name="comment" class="input_icon" type="text" placeholder="Комментарий" />
+                        <img class="input__icon" src="./images/comment.svg" alt="Иконка комментария" />
+                        <button class="button" type="submit">Готово</button>
+                    </form>
+                </div>
+            </main>
+        </div>
+        <div class="cover cover_hidden" id="add-habbit-popup">
+            <div class="popup">
+                <h2>Новая привычка</h2>
+                <div class="icon-label">Иконка</div>
+                <div class="icon-select">
+                    <button class="icon icon_active" data-icon="sport">
+                        <img src="./images/sport.svg" alt="Спорт">
+                    </button>
+                    <button class="icon" data-icon="food">
+                        <img src="./images/food.svg" alt="Еда">
+                    </button>
+                    <button class="icon" data-icon="water">
+                        <img src="./images/water.svg" alt="Напитки">
+                    </button>
+                    <button class="icon" data-icon="study">
+                        <img src="./images/study.svg" alt="Обучение">
+                    </button>
+                    <button class="icon" data-icon="other">
+                        <img src="./images/other.svg" alt="Другое">
+                    </button>
+                </div>
+
+                <div class="category-label">Категория</div>
+                <div class="category-select">
+                    <button class="category category_active" data-category="sport">🏋️ Спорт</button>
+                    <button class="category" data-category="food">🥗 Питание</button>
+                    <button class="category" data-category="water">💧 Здоровье</button>
+                    <button class="category" data-category="study">📚 Обучение</button>
+                    <button class="category" data-category="other">🎯 Другое</button>
+                </div>
+                <form class="popup__form" id="add-habbit-form">
+                    <input type="text" name="name" placeholder="Название">
+                    <input type="text" name="icon" hidden placeholder="Иконка" value="sport">
+                    <input type="text" name="category" hidden placeholder="Категория" value="sport">
+                    <input type="number" name="target" placeholder="Цель">
+                    <button class="button" type="submit">Добавить</button>
+                </form>
+                <button class="popup__close" id="close-popup-btn">
+                    <img src="./images/close.svg" alt="Закрыть попап">
+                </button>
+            </div>
+        </div>
+        <!-- Кастомное модальное окно подтверждения -->
+        <div class="confirm-modal cover_hidden" id="confirm-modal">
+            <div class="confirm-modal__content">
+                <h3 class="confirm-modal__title">Подтверждение</h3>
+                <p class="confirm-modal__text">Вы уверены, что хотите удалить эту привычку?</p>
+                <div class="confirm-modal__buttons">
+                    <button class="button confirm-modal__cancel" id="confirm-cancel">Отмена</button>
+                    <button class="button confirm-modal__confirm" id="confirm-ok">Удалить</button>
+                </div>
+            </div>
+        </div>
+        <!-- Переключатель темы -->
+        <button class="theme-toggle" id="theme-toggle" title="Переключить тему">
+
+        </button>
+        <!-- Модальное окно статистики -->
+        <div class="stats-modal cover_hidden" id="stats-modal">
+            <div class="stats-modal__content">
+                <div class="stats-modal__header">
+                    <h2>📊 Статистика</h2>
+                    <button class="popup__close stats-modal__close" id="stats-close-btn">
+                        <img src="./images/close.svg" alt="Закрыть">
+                    </button>
+                </div>
+
+                <div class="stats-summary">
+                    <div class="stat-card">
+                        <div class="stat-card__value" id="stat-habits-count">0</div>
+                        <div class="stat-card__label">Привычек</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__value" id="stat-days-count">0</div>
+                        <div class="stat-card__label">Дней пройдено</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card__value" id="stat-progress">0%</div>
+                        <div class="stat-card__label">Общий прогресс</div>
+                    </div>
+                </div>
+
+                <h3 class="stats-title">Прогресс по привычкам</h3>
+                <div class="stats-list" id="stats-list">
+                    <!-- Сюда JS добавит список -->
+                </div>
+            </div>
+        </div>
+        <!-- Модальное окно редактирования комментария -->
+        <div class="cover cover_hidden" id="edit-comment-popup">
+            <div class="popup popup_small">
+                <h2>Редактировать комментарий</h2>
+                <form class="popup__form" id="edit-comment-form">
+                    <input type="text" name="comment" placeholder="Введите новый комментарий">
+                    <div class="popup__buttons-row">
+                        <button type="button" class="button button_cancel" id="cancel-edit-btn">Отмена</button>
+                        <button type="submit" class="button">Сохранить</button>
+                    </div>
+                </form>
+                <button class="popup__close" id="close-edit-popup-btn">
+                    <img src="./images/close.svg" alt="Закрыть">
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="./scripts/app.js"></script>
+</body>
+
+</html>

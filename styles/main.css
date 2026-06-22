@@ -1,0 +1,1236 @@
+* {
+  box-sizing: border-box;
+}
+
+/* ===== CSS-переменные для тем ===== */
+:root {
+  /* Светлая тема (по умолчанию) */
+  --bg-main: #f3f6fd;
+  --bg-panel: #ffffff;
+  --bg-habbit: #ffffff;
+  --bg-habbit-day: #fbfaff;
+  --bg-button: #edecfe;
+  --bg-button-hover: #dcdaff;
+  --bg-input: #ffffff;
+  --bg-menu-add-hover: #eff2ff;
+  --bg-menu-item-hover: #6a6afb;
+  --bg-menu-item-active: #5051f9;
+  --bg-progress-bar: #e6e9ed;
+  --bg-progress-cover: #5051f9;
+  --bg-confirm-cancel: #f3f6fd;
+  --bg-confirm-cancel-hover: #e6e9ed;
+  --bg-confirm-confirm: #ff4444;
+  --bg-confirm-confirm-hover: #cc0000;
+  --bg-modal: rgba(0, 0, 0, 0.25);
+  --bg-modal-confirm: rgba(0, 0, 0, 0.5);
+
+  /* Текст */
+  --text-main: #000000;
+  --text-secondary: #232360;
+  --text-muted: #768396;
+  --text-placeholder: #8899a8;
+  --text-button: #5051f9;
+  --text-button-hover: #ffffff;
+  --text-confirm-cancel: #768396;
+  --text-confirm-cancel-hover: #232360;
+  --text-confirm-confirm: #ffffff;
+
+  /* Границы */
+  --border-input: #e7ebfb;
+  --border-habbit-day: #e7ebfb;
+  --border-menu-add: #cad5ff;
+
+  /* Тени */
+  --shadow-menu-item: 0px 8px 14px rgba(62, 107, 224, 0.12);
+  --shadow-menu-item-hover: 0px 10px 20px rgba(62, 107, 224, 0.25);
+  --shadow-popup: 0px 8px 14px 12px rgba(56, 56, 56, 0.05);
+  --shadow-button-hover: 0px 5px 15px rgba(80, 81, 249, 0.4);
+  --shadow-confirm: 0px 10px 30px rgba(0, 0, 0, 0.2);
+  --shadow-confirm-hover: 0px 5px 15px rgba(255, 68, 68, 0.4);
+
+  /* Переходы */
+  --transition-speed: 0.3s;
+}
+
+/* Тёмная тема */
+body.dark-theme {
+  --bg-main: #1a1a2e;
+  --bg-panel: #16213e;
+  --bg-habbit: #1f2a48;
+  --bg-habbit-day: #243352;
+  --bg-button: #2a3a5c;
+  --bg-button-hover: #3a4a7c;
+  --bg-input: #1f2a48;
+  --bg-menu-add-hover: #2a3a5c;
+  --bg-menu-item-hover: #3a4a7c;
+  --bg-menu-item-active: #4a5a9c;
+  --bg-progress-bar: #2a3a5c;
+  --bg-progress-cover: #6a7aff;
+  --bg-confirm-cancel: #2a3a5c;
+  --bg-confirm-cancel-hover: #3a4a7c;
+  --bg-confirm-confirm: #ff4444;
+  --bg-confirm-confirm-hover: #cc0000;
+  --bg-modal: rgba(0, 0, 0, 0.6);
+  --bg-modal-confirm: rgba(0, 0, 0, 0.8);
+
+  --text-main: #e0e0e0;
+  --text-secondary: #c0c0d0;
+  --text-muted: #8899a8;
+  --text-placeholder: #667788;
+  --text-button: #a0b0ff;
+  --text-button-hover: #ffffff;
+  --text-confirm-cancel: #c0c0d0;
+  --text-confirm-cancel-hover: #e0e0e0;
+  --text-confirm-confirm: #ffffff;
+
+  --border-input: #2a3a5c;
+  --border-habbit-day: #2a3a5c;
+  --border-menu-add: #3a4a7c;
+
+  --shadow-menu-item: 0px 8px 14px rgba(0, 0, 0, 0.3);
+  --shadow-menu-item-hover: 0px 10px 20px rgba(0, 0, 0, 0.4);
+  --shadow-popup: 0px 8px 14px 12px rgba(0, 0, 0, 0.4);
+  --shadow-button-hover: 0px 5px 15px rgba(106, 122, 255, 0.4);
+  --shadow-confirm: 0px 10px 30px rgba(0, 0, 0, 0.5);
+  --shadow-confirm-hover: 0px 5px 15px rgba(255, 68, 68, 0.5);
+}
+
+body {
+  font-family: 'Comfortaa', cursive;
+  margin: 0;
+  background-color: var(--bg-main);
+  font-weight: 400;
+  transition: background-color var(--transition-speed) ease;
+}
+
+.app {
+  display: flex;
+}
+
+.logo {
+  margin-bottom: 50px;
+}
+
+.panel {
+  background: var(--bg-panel);
+  min-height: 100vh;
+  padding: 30px;
+  transition: background-color var(--transition-speed) ease;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+}
+
+.menu__list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+  scrollbar-width: none;
+}
+
+.menu__list::-webkit-scrollbar {
+  display: none;
+}
+
+.menu__item {
+  background: var(--bg-panel);
+  box-shadow: var(--shadow-menu-item);
+  border-radius: 14px;
+  border: none;
+  height: 45px;
+  width: 45px;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+}
+
+.menu__item:hover {
+  background: var(--bg-menu-item-hover);
+  transform: scale(1.1);
+  box-shadow: var(--shadow-menu-item-hover);
+}
+
+.menu__item:hover img {
+  filter: brightness(0) invert(1);
+}
+
+.menu__item_active {
+  background: var(--bg-menu-item-active);
+}
+
+.menu__item_active img {
+  filter: brightness(0) invert(1);
+}
+
+.menu__add {
+  background: none;
+  border: 1px solid var(--border-menu-add);
+  border-radius: 14px;
+  height: 45px;
+  width: 45px;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+}
+
+.menu__add:hover {
+  background: var(--bg-menu-add-hover);
+  transform: rotate(90deg);
+  border-color: var(--bg-menu-item-active);
+}
+
+.menu__item-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.menu__delete {
+  background: none;
+  border: none;
+  color: #ff4444;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.menu__item-wrapper:hover .menu__delete {
+  opacity: 1;
+}
+
+.menu__delete:hover {
+  color: #cc0000;
+  transform: scale(1.2);
+}
+
+.menu__edit {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.menu__item-wrapper:hover .menu__edit {
+  opacity: 1;
+}
+
+.menu__edit:hover {
+  transform: scale(1.2);
+}
+
+/* ===== Кнопки экспорта и импорта ===== */
+.menu__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.action-btn {
+  background: none;
+  border: 1px solid var(--border-menu-add);
+  border-radius: 9px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  font-family: 'Comfortaa', cursive;
+  width: 100%;
+  text-align: center;
+}
+
+.action-btn:hover {
+  background: var(--bg-menu-add-hover);
+  color: var(--text-secondary);
+  border-color: var(--bg-menu-item-active);
+}
+
+/* ===== Статистика ===== */
+.menu__stats {
+  background: none;
+  border: 1px solid var(--border-menu-add);
+  border-radius: 9px;
+  padding: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  font-family: 'Comfortaa', cursive;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.menu__stats:hover {
+  background: var(--bg-menu-add-hover);
+  color: var(--text-secondary);
+  border-color: var(--bg-menu-item-active);
+}
+
+/* Модальное окно статистики */
+.stats-modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: var(--bg-modal-confirm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 3000;
+}
+
+.stats-modal.cover_hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.stats-modal__content {
+  background: var(--bg-panel);
+  border-radius: 15px;
+  padding: 30px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-confirm);
+  transform: scale(1);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.stats-modal.cover_hidden .stats-modal__content {
+  transform: scale(0.8);
+}
+
+.stats-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.stats-modal__close {
+  right: 0;
+  top: 0;
+}
+
+/* Карточки статистики */
+.stats-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background: var(--bg-habbit-day);
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  border: 1px solid var(--border-habbit-day);
+}
+
+.stat-card__value {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 5px;
+}
+
+.stat-card__label {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Список привычек */
+.stats-title {
+  font-size: 18px;
+  color: var(--text-secondary);
+  margin-bottom: 15px;
+  font-weight: 400;
+}
+
+.stats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stats-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-habbit-day);
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
+.stats-item-icon {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+}
+
+.stats-item-info {
+  flex: 1;
+}
+
+.stats-item-name {
+  font-size: 14px;
+  color: var(--text-main);
+  margin-bottom: 5px;
+}
+
+.stats-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--bg-progress-bar);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.stats-progress-fill {
+  height: 100%;
+  background: var(--bg-progress-cover);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.stats-item-percent {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+  min-width: 35px;
+  text-align: right;
+}
+
+/* Адаптивность для статистики */
+@media (max-width: 480px) {
+  .stats-summary {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Адаптивность для кнопок на мобильных */
+@media (max-width: 1024px) {
+  .menu__actions {
+    flex-direction: row;
+    margin-top: 0;
+    gap: 8px;
+  }
+  
+  .action-btn {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+}
+
+.content {
+  min-width: 900px;
+  padding: 45px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  font-size: 30px;
+  line-height: 33px;
+  color: var(--text-main);
+  transition: color var(--transition-speed) ease;
+}
+
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 235px;
+}
+
+.progress__text {
+  display: flex;
+  justify-content: space-between;
+}
+
+.progress__name {
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--text-secondary);
+}
+
+.progress__percent {
+  font-size: 12px;
+  line-height: 13px;
+  color: var(--text-muted);
+}
+
+.progress__bar {
+  width: 100%;
+  background: var(--bg-progress-bar);
+  border-radius: 4px;
+  height: 5px;
+  position: relative;
+  transition: background-color var(--transition-speed) ease;
+}
+
+.progress__cover-bar {
+  position: absolute;
+  transition: all 0.5s;
+  height: 5px;
+  border-radius: 4px;
+  background: var(--bg-progress-cover);
+}
+
+main {
+  margin-top: 30px;
+}
+
+.habbit {
+  background: var(--bg-habbit);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  transition: background-color var(--transition-speed) ease;
+}
+
+.habbit__day {
+  background: var(--bg-habbit-day);
+  border-radius: 10px 0 0 10px;
+  border-right: 1px solid var(--border-habbit-day);
+  font-size: 14px;
+  line-height: 16px;
+  padding: 20px 40px;
+  min-width: 150px;
+  transition: all var(--transition-speed) ease;
+}
+
+.habbit__comment {
+  font-size: 16px;
+  line-height: 18px;
+  padding: 20px 25px;
+  color: var(--text-main);
+}
+
+.habbit__delete {
+  margin-left: auto;
+  margin-right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.habbit__delete:hover {
+  background: var(--bg-menu-add-hover);
+}
+
+input {
+  background: var(--bg-input);
+  border: 1px solid var(--border-input);
+  border-radius: 9px;
+  padding: 12px 20px;
+  font-family: 'Comfortaa', cursive;
+  flex: 1;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--text-main);
+  transition: all var(--transition-speed) ease;
+}
+
+input::placeholder {
+  color: var(--text-placeholder);
+}
+
+input.error {
+  border: 1px solid red;
+}
+
+.habbit__form {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  padding: 0px 10px 0px 25px;
+  position: relative;
+}
+
+.input_icon {
+  padding-left: 45px;
+}
+
+.input__icon {
+  position: absolute;
+  top: 10px;
+  left: 45px;
+}
+
+.button {
+  background: var(--bg-button);
+  border-radius: 9px;
+  border: none;
+  font-size: 13px;
+  line-height: 14px;
+  color: var(--text-button);
+  padding: 14px 30px;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  font-weight: 600;
+}
+
+.button:hover {
+  background: var(--bg-menu-item-active);
+  color: var(--text-button-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-button-hover);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.cover {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: var(--bg-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity var(--transition-speed) ease,
+    visibility var(--transition-speed) ease;
+  z-index: 1000;
+}
+
+.cover_hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.popup {
+  background: var(--bg-panel);
+  box-shadow: var(--shadow-popup);
+  border-radius: 10px;
+  max-width: 600px;
+  width: 100%;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: scale(1);
+  transition:
+    transform var(--transition-speed) ease,
+    background-color var(--transition-speed) ease;
+}
+
+.cover_hidden .popup {
+  transform: scale(0.9);
+}
+
+.popup__close {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: transform var(--transition-speed) ease;
+}
+
+.popup__close:hover {
+  transform: rotate(90deg);
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 27px;
+  color: var(--text-main);
+}
+
+.icon-label {
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.icon-select {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 20px;
+}
+
+.icon {
+  border: 1px solid var(--bg-menu-item-active);
+  border-radius: 14px;
+  background: var(--bg-panel);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+}
+
+.icon_active {
+  background: var(--bg-menu-item-active);
+}
+
+.icon:hover {
+  background: var(--bg-menu-item-hover);
+  transform: scale(1.1) rotate(5deg);
+}
+
+.icon:hover img {
+  filter: brightness(0) invert(1);
+}
+
+.icon_active img {
+  filter: brightness(0) invert(1);
+}
+
+.popup__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.popup__form input {
+  width: 100%;
+}
+
+/* Кастомное модальное окно подтверждения */
+.confirm-modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: var(--bg-modal-confirm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity var(--transition-speed) ease,
+    visibility var(--transition-speed) ease;
+  z-index: 2000;
+}
+
+.confirm-modal.cover_hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.confirm-modal__content {
+  background: var(--bg-panel);
+  border-radius: 15px;
+  padding: 30px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: var(--shadow-confirm);
+  transform: scale(1);
+  transition:
+    transform var(--transition-speed) ease,
+    background-color var(--transition-speed) ease;
+  text-align: center;
+}
+
+.confirm-modal.cover_hidden .confirm-modal__content {
+  transform: scale(0.8);
+}
+
+.confirm-modal__title {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 15px;
+}
+
+.confirm-modal__text {
+  font-size: 16px;
+  color: var(--text-muted);
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+.confirm-modal__buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.confirm-modal__cancel {
+  background: var(--bg-confirm-cancel);
+  color: var(--text-confirm-cancel);
+}
+
+.confirm-modal__cancel:hover {
+  background: var(--bg-confirm-cancel-hover);
+  color: var(--text-confirm-cancel-hover);
+}
+
+.confirm-modal__confirm {
+  background: var(--bg-confirm-confirm);
+  color: var(--text-confirm-confirm);
+}
+
+.confirm-modal__confirm:hover {
+  background: var(--bg-confirm-confirm-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-confirm-hover);
+}
+
+/* ===== Переключатель темы ===== */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-menu-add);
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  z-index: 100;
+  transition: all var(--transition-speed) ease;
+  box-shadow: var(--shadow-menu-item);
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1) rotate(20deg);
+  box-shadow: var(--shadow-menu-item-hover);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+/* ===== Адаптивность ===== */
+
+/* Планшет и меньше (до 1024px) */
+@media (max-width: 1024px) {
+  .app {
+    flex-direction: column;
+  }
+
+  .panel {
+    min-height: auto;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .menu {
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .menu__list {
+    flex-direction: row;
+    gap: 15px;
+    overflow-x: auto;
+    max-width: calc(100vw - 100px);
+    padding: 5px;
+  }
+
+  .content {
+    min-width: 0;
+    padding: 30px 20px;
+    padding-bottom: 100px; /* Место для фиксированного меню снизу */
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .progress {
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .habbit {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .habbit__day {
+    border-right: none;
+    border-bottom: 1px solid var(--border-habbit-day);
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+  }
+
+  .habbit__form {
+    flex-direction: column;
+    padding: 15px;
+    gap: 10px;
+  }
+
+  .input_icon {
+    padding-left: 45px;
+  }
+
+  .button {
+    width: 100%;
+  }
+}
+
+/* Мобильные (до 768px) */
+@media (max-width: 768px) {
+  .content {
+    padding: 20px 15px;
+    padding-bottom: 100px;
+  }
+
+  h1 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .menu__item {
+    height: 40px;
+    width: 40px;
+  }
+
+  .menu__add {
+    height: 40px;
+    width: 40px;
+  }
+
+  .habbit__comment {
+    font-size: 14px;
+    padding: 15px;
+  }
+
+  .habbit__delete {
+    margin: 10px auto;
+  }
+
+  .popup {
+    max-width: 90%;
+    padding: 25px 20px;
+    margin: 15px;
+  }
+
+  .icon-select {
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .confirm-modal__content {
+    padding: 25px 20px;
+    margin: 15px;
+  }
+
+  .confirm-modal__buttons {
+    flex-direction: column;
+  }
+
+  .confirm-modal__cancel,
+  .confirm-modal__confirm {
+    width: 100%;
+  }
+
+  .theme-toggle {
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+}
+
+/* Очень маленькие экраны (до 480px) */
+@media (max-width: 480px) {
+  .content {
+    padding: 15px 10px;
+    padding-bottom: 100px;
+  }
+
+  h1 {
+    font-size: 18px;
+  }
+
+  .habbit__day {
+    padding: 15px 20px;
+    font-size: 13px;
+  }
+
+  input {
+    font-size: 13px;
+    padding: 10px 15px;
+  }
+
+  .menu__item-wrapper {
+    gap: 4px;
+  }
+
+  .menu__edit,
+  .menu__delete {
+    font-size: 14px;
+    width: 16px;
+    height: 16px;
+    opacity: 1; /* Всегда видны на мобильных (нет hover-эффекта) */
+  }
+}
+
+/* ===== Модальное окно редактирования комментария ===== */
+.popup_small {
+  max-width: 400px;
+}
+
+.popup__buttons-row {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  justify-content: center;
+}
+
+.button_cancel {
+  background: var(--bg-confirm-cancel);
+  color: var(--text-confirm-cancel);
+}
+
+.button_cancel:hover {
+  background: var(--bg-confirm-cancel-hover);
+  color: var(--text-confirm-cancel-hover);
+  transform: none;
+  box-shadow: none;
+}
+
+/* Кнопка редактирования дня (карандаш) */
+.habbit__edit {
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 2px;
+  margin-right: 5px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.habbit__edit:hover {
+  opacity: 1;
+  background: var(--bg-menu-add-hover);
+}
+
+/* Контейнер для кнопок редактирования и удаления */
+.habbit__actions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+/* ===== Категории ===== */
+
+/* Метка категории в попапе */
+.category-label {
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+/* Контейнер кнопок категорий */
+.category-select {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Кнопка категории */
+.category {
+  background: var(--bg-input);
+  border: 1px solid var(--border-input);
+  border-radius: 9px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-family: 'Comfortaa', cursive;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+}
+
+.category:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-menu-item);
+}
+
+.category_active {
+  color: #ffffff;
+  border-color: transparent;
+}
+
+/* Цвета для активных категорий */
+.category_active[data-category="sport"] {
+  background: #5051f9;
+}
+
+.category_active[data-category="food"] {
+  background: #4caf50;
+}
+
+.category_active[data-category="water"] {
+  background: #2196f3;
+}
+
+.category_active[data-category="study"] {
+  background: #ff9800;
+}
+
+.category_active[data-category="other"] {
+  background: #9e9e9e;
+}
+
+/* ===== Фильтрация в меню ===== */
+.menu__filter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.filter-btn {
+  background: none;
+  border: 1px solid var(--border-menu-add);
+  border-radius: 9px;
+  padding: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  font-family: 'Comfortaa', cursive;
+  color: var(--text-muted);
+}
+
+.filter-btn:hover {
+  background: var(--bg-menu-add-hover);
+  color: var(--text-secondary);
+  border-color: var(--bg-menu-item-active);
+}
+
+.filter-btn_active {
+  background: var(--bg-menu-item-active);
+  color: #ffffff;
+  border-color: var(--bg-menu-item-active);
+}
+
+/* Скрытие привычек при фильтрации */
+.menu__item-wrapper.habbit_hidden {
+  display: none;
+}
+
+/* Цветовая индикация иконки привычки по категории */
+.menu__item[data-category="sport"] {
+  border-left: 3px solid #5051f9;
+}
+
+.menu__item[data-category="food"] {
+  border-left: 3px solid #4caf50;
+}
+
+.menu__item[data-category="water"] {
+  border-left: 3px solid #2196f3;
+}
+
+.menu__item[data-category="study"] {
+  border-left: 3px solid #ff9800;
+}
+
+.menu__item[data-category="other"] {
+  border-left: 3px solid #9e9e9e;
+}
+
+/* Адаптивность для категорий на мобильных */
+@media (max-width: 1024px) {
+  .menu__filter {
+    flex-direction: row;
+    overflow-x: auto;
+    margin-bottom: 0;
+    padding: 5px;
+  }
+
+  .filter-btn {
+    padding: 6px 10px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .category-select {
+    gap: 8px;
+  }
+
+  .category {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+
