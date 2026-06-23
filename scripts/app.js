@@ -28,12 +28,36 @@ const page = {
 };
 
 /* utils */
-function loadData() {
+/**
+ * Загружает данные. Если в localStorage пусто, пытается загрузить демо-данные.
+ * Теперь эта функция асинхронная (async), так как использует fetch.
+ */
+async function loadData() {
   const habbitsString = localStorage.getItem('HABBIT_KEY');
+  
   if (!habbitsString) {
-    habbits = [];
+    console.log('Данные в localStorage не найдены. Пробуем загрузить демо-данные...');
+    try {
+      // Пытаемся скачать файл demo.json
+      const response = await fetch('data/demo.json');
+      
+      if (response.ok) {
+        const demoData = await response.json();
+        habbits = demoData;
+        saveData(); // Сразу сохраняем в localStorage, чтобы не грузить файл каждый раз
+        console.log('✅ Демо-данные успешно загружены!');
+      } else {
+        console.log('Файл demo.json не найден. Запускаем пустое приложение.');
+        habbits = [];
+      }
+    } catch (error) {
+      console.error('Ошибка загрузки демо-данных:', error);
+      habbits = [];
+    }
     return;
   }
+  
+  // Если данные в localStorage ЕСТЬ (старая логика)
   const habbitArray = JSON.parse(habbitsString);
   if (Array.isArray(habbitArray)) {
     habbits = habbitArray;
@@ -609,8 +633,8 @@ function closeEditPopup() {
 }
 
 /* init */
-(() => {
-  loadData();
+(async () => {
+  await loadData(); // <--- Теперь ждем загрузки данных
 
   // Обработчики для кнопок открытия/закрытия попапа
   document
