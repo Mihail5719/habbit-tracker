@@ -294,6 +294,11 @@ body::after {
   font-family: 'Comfortaa', cursive;
   width: 100%;
   text-align: center;
+  
+  /* ↓ Добавили для ссылки <a> ↓ */
+  text-decoration: none;
+  display: block;
+  box-sizing: border-box;
 }
 
 .action-btn:hover {
