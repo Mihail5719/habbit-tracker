@@ -314,9 +314,34 @@ function addHabbit(event) {
     return;
   }
 
+  // Дополнительная проверка значения цели
+  const targetValue = Number(data.target);
+  if (
+    isNaN(targetValue) ||
+    targetValue < 1 ||
+    targetValue > 365 ||
+    !Number.isInteger(targetValue)
+  ) {
+    alert('Цель должна быть целым числом от 1 до 365 дней');
+    event.target.target.classList.add('error');
+    return;
+  }
+
   if (editingHabbitId) {
     // Режим редактирования
     const editedId = editingHabbitId; // ← Сохраняем id ПЕРЕД сбросом
+    // Дополнительная проверка значения цели при редактировании
+    const targetValue = Number(data.target);
+    if (
+      isNaN(targetValue) ||
+      targetValue < 1 ||
+      targetValue > 365 ||
+      !Number.isInteger(targetValue)
+    ) {
+      alert('Цель должна быть целым числом от 1 до 365 дней');
+      event.target.target.classList.add('error');
+      return;
+    }
     habbits = habbits.map((habbit) => {
       if (habbit.id === editingHabbitId) {
         return {
