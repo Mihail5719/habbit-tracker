@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инструкция - Habbit Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comfortaa', cursive;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        /* Фоновое изображение */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(1px);
+            z-index: -2;
+        }
+
+        /* Оверлей */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #5051f9;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p {
+            color: #232360;
+            font-size: 1.1em;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            color: #5051f9;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h2::before {
+            content: attr(data-number);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.6em;
+        }
+
+        .section p {
+            color: #232360;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .section ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 15px 0;
+        }
+
+        .section ul li {
+            padding: 10px 0 10px 30px;
+            position: relative;
+            color: #232360;
+            line-height: 1.6;
+        }
+
+        .section ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #5051f9;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .tip {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-left: 4px solid #ff6b6b;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .tip strong {
+            color: #d63031;
+        }
+
+        .warning {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-left: 4px solid #0984e3;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .warning strong {
+            color: #0984e3;
+        }
+
+        .step {
+            background: #f8f9ff;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-left: 3px solid #667eea;
+        }
+
+        .step strong {
+            color: #5051f9;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .faq-item {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 10px;
+        }
+
+        .faq-item h3 {
+            color: #5051f9;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .faq-item p {
+            margin: 0;
+            color: #232360;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #232360;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .footer a {
+            color: #5051f9;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .section h2 {
+                font-size: 1.4em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Заголовок -->
+        <div class="header">
+            <h1>📖 Инструкция по использованию</h1>
+            <p>Habbit Tracker — ваш персональный помощник в формировании привычек</p>
+            <a href="index.html" class="back-link">→ Перейти в приложение</a>
+        </div>
+
+        <!-- 1. Что такое трекер привычек -->
+        <div class="section" data-number="1">
+            <h2>Что такое трекер привычек?</h2>
+            <p>Трекер привычек — это инструмент, который помогает вам формировать и поддерживать полезные привычки. Вы
+                ставите цель (например, "заниматься спортом 30 дней") и каждый день отмечаете прогресс.</p>
+            <div class="tip">
+                <strong>💡 Совет:</strong> Исследования показывают, что на формирование привычки нужно от 21 до 66 дней.
+                Регулярное отслеживание значительно повышает шансы на успех!
+            </div>
+        </div>
+
+        <!-- 2. Первый вход -->
+        <div class="section" data-number="2">
+            <h2>Первый вход в приложение</h2>
+            <p>При первом входе вы увидите 3 демо-привычки ("Утренняя зарядка", "Пить воду", "Читать книгу"). Это
+                примеры, которые помогут вам понять, как работает приложение.</p>
+            <div class="step">
+                <strong>Что делать:</strong>
+                <ul>
+                    <li>Изучите демо-привычки</li>
+                    <li>Удалите их (кнопка × рядом с иконкой), когда будете готовы создать свои</li>
+                    <li>Или оставьте как примеры для вдохновения</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 3. Создание привычки -->
+        <div class="section" data-number="3">
+            <h2>Создание новой привычки</h2>
+            <p>Нажмите синюю кнопку <strong>"+"</strong> в левом меню.</p>
+            <div class="step">
+                <strong>Заполните форму:</strong>
+                <ul>
+                    <li><strong>Выберите иконку</strong> — одна из 5 предложенных</li>
+                    <li><strong>Выберите категорию</strong> — Спорт, Питание, Здоровье, Обучение или Другое</li>
+                    <li><strong>Введите название</strong> — например, "Утренняя зарядка"</li>
+                    <li><strong>Укажите цель</strong> — количество дней (от 1 до 365)</li>
+                </ul>
+            </div>
+            <p>Нажмите <strong>"Добавить"</strong> — привычка появится в списке!</p>
+        </div>
+
+        <!-- 4. Ежедневное использование -->
+        <div class="section" data-number="4">
+            <h2>Ежедневное использование</h2>
+            <p>Каждый день, когда вы выполнили привычку:</p>
+            <div class="step">
+                <ol style="padding-left: 20px; line-height: 2;">
+                    <li>Выберите привычку из левого меню</li>
+                    <li>В поле "Комментарий" добавьте заметку (необязательно)</li>
+                    <li>Нажмите <strong>"Готово"</strong></li>
+                </ol>
+            </div>
+            <p>День добавится в список, а прогресс-бар обновится!</p>
+        </div>
+
+        <!-- 5. Прогресс -->
+        <div class="section" data-number="5">
+            <h2>Отслеживание прогресса</h2>
+            <p>В верхней части экрана вы видите:</p>
+            <ul>
+                <li><strong>Название привычки</strong></li>
+                <li><strong>Прогресс-бар</strong> — визуальное отображение вашего прогресса</li>
+                <li><strong>Процент выполнения</strong> — сколько дней вы уже выполнили от общей цели</li>
+            </ul>
+            <div class="tip">
+                <strong> Пример:</strong> Если цель 30 дней, и вы выполнили 15 дней, прогресс будет 50%.
+            </div>
+        </div>
+
+        <!-- 6. Фильтр по категориям -->
+        <div class="section" data-number="6">
+            <h2>Фильтр по категориям</h2>
+            <p>В левом меню под кнопкой "+" есть кнопки категорий:</p>
+            <ul>
+                <li><strong>"Все"</strong> — показать все привычки</li>
+                <li><strong>🏋️ Спорт</strong> — только спортивные привычки</li>
+                <li><strong>🥗 Питание</strong> — привычки, связанные с едой</li>
+                <li><strong>💧 Здоровье</strong> — здоровье и самочувствие</li>
+                <li><strong>📚 Обучение</strong> — учёба и развитие</li>
+                <li><strong>🎯 Другое</strong> — остальные привычки</li>
+            </ul>
+            <p>Нажмите на категорию, чтобы отфильтровать список!</p>
+        </div>
+
+        <!-- 7. Редактирование и удаление -->
+        <div class="section" data-number="7">
+            <h2>Редактирование и удаление</h2>
+            <p><strong>Редактировать привычку:</strong></p>
+            <ul>
+                <li>Наведите на иконку привычки в левом меню</li>
+                <li>Нажмите кнопку ✏️ (карандаш)</li>
+                <li>Измените данные и нажмите "Сохранить"</li>
+            </ul>
+
+            <p><strong>Удалить привычку:</strong></p>
+            <ul>
+                <li>Наведите на иконку привычки</li>
+                <li>Нажмите кнопку × (крестик)</li>
+                <li>Подтвердите удаление</li>
+            </ul>
+
+            <p><strong>Редактировать/удалить день:</strong></p>
+            <ul>
+                <li>Найдите день в списке</li>
+                <li>Нажмите ✏️ для редактирования комментария</li>
+                <li>Нажмите 🗑️ для удаления дня</li>
+            </ul>
+        </div>
+
+        <!-- 8. Темы оформления -->
+        <div class="section" data-number="8">
+            <h2>Темы оформления</h2>
+            <p>В правом верхнем углу есть кнопка переключения тем:</p>
+            <ul>
+                <li><strong>🌙 Тёмная тема</strong> — комфортна для глаз вечером</li>
+                <li><strong>☀️ Светлая тема</strong> — яркая и свежая</li>
+            </ul>
+            <p>Нажмите на кнопку, чтобы переключиться. Тема сохранится!</p>
+        </div>
+
+        <!-- 9. Статистика -->
+        <div class="section" data-number="9">
+            <h2>Статистика</h2>
+            <p>Нажмите кнопку <strong>"Статистика"</strong> в нижней части левого меню, чтобы увидеть:</p>
+            <ul>
+                <li><strong>Общее количество привычек</strong></li>
+                <li><strong>Всего выполнено дней</strong></li>
+                <li><strong>Общий прогресс</strong> — средний процент выполнения по всем привычкам</li>
+                <li><strong>Список всех привычек</strong> с индивидуальным прогрессом</li>
+            </ul>
+            <div class="tip">
+                <strong>📈 Мотивация:</strong> Смотрите на общую статистику, чтобы видеть свой общий прогресс!
+            </div>
+        </div>
+
+        <!-- 10. Экспорт и импорт -->
+        <div class="section" data-number="10">
+            <h2>Экспорт и импорт данных</h2>
+            <p><strong>Экспорт (сохранение):</strong></p>
+            <ul>
+                <li>Нажмите кнопку <strong>"Экспорт"</strong> внизу левого меню</li>
+                <li>Файл скачается на ваш компьютер</li>
+                <li>Сохраните его в надёжном месте</li>
+            </ul>
+
+            <p><strong>Импорт (восстановление):</strong></p>
+            <ul>
+                <li>Нажмите кнопку <strong>"Импорт"</strong></li>
+                <li>Выберите ранее сохранённый файл</li>
+                <li>Все данные восстановятся</li>
+            </ul>
+
+            <div class="warning">
+                <strong>⚠️ Важно:</strong> Данные сохраняются только в вашем браузере! Если вы смените браузер или
+                устройство, используйте экспорт/импорт для переноса данных.
+            </div>
+        </div>
+
+        <!-- 11. FAQ -->
+        <div class="section" data-number="11">
+            <h2>Частые вопросы</h2>
+
+            <div class="faq-item">
+                <h3>🔒 Куда сохраняются мои данные?</h3>
+                <p>Все данные хранятся локально в вашем браузере (localStorage). Они не отправляются на сервер и не
+                    передаются третьим лицам.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>📱 Можно ли пользоваться с телефона?</h3>
+                <p>Да! Приложение адаптировано для мобильных устройств. Просто откройте сайт на телефоне.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>🔄 Как сбросить всё и начать заново?</h3>
+                <p>Откройте консоль браузера (F12), перейдите во вкладку Application → Local Storage → нажмите правой
+                    кнопкой на HABBIT_KEY → Delete. Или просто очистите данные браузера.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>💻 Работает ли приложение офлайн?</h3>
+                <p>После первой загрузки приложение работает без интернета, так как все данные хранятся локально.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3> Можно ли синхронизировать данные между устройствами?</h3>
+                <p>Сейчас синхронизация не поддерживается. Используйте экспорт/импорт для переноса данных между
+                    устройствами.</p>
+            </div>
+        </div>
+
+        <!-- Подвал -->
+        <div class="footer">
+            <p>🎉 Удачи в формировании полезных привычек!</p>
+            <p style="margin-top: 15px;">
+                <a href="index.html">← Вернуться в приложение</a>
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>
