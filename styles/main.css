@@ -5,8 +5,8 @@
 /* ===== CSS-переменные для тем ===== */
 :root {
   /* Светлая тема (по умолчанию) */
-  --bg-main: #f3f6fd;
-  --bg-panel: #ffffff;
+  --bg-main: #ffffff;
+  --bg-panel: #f5f5f5;
   --bg-habbit: #ffffff;
   --bg-habbit-day: #fbfaff;
   --bg-button: #edecfe;
@@ -24,6 +24,9 @@
   --bg-modal: rgba(0, 0, 0, 0.25);
   --bg-modal-confirm: rgba(0, 0, 0, 0.5);
 
+  /* Переменные для фона в светлой теме */
+  --bg-overlay: rgba(255, 255, 255, 0.1);
+  --bg-blur-intensity: blur(1px);
   /* Текст */
   --text-main: #000000;
   --text-secondary: #232360;
@@ -73,6 +76,10 @@ body.dark-theme {
   --bg-modal: rgba(0, 0, 0, 0.6);
   --bg-modal-confirm: rgba(0, 0, 0, 0.8);
 
+  /* Переменные для фона в темной теме */
+  --bg-overlay: rgba(0, 0, 0, 0.15);
+  --bg-blur-intensity: blur(1px);
+
   --text-main: #e0e0e0;
   --text-secondary: #c0c0d0;
   --text-muted: #8899a8;
@@ -95,12 +102,43 @@ body.dark-theme {
   --shadow-confirm-hover: 0px 5px 15px rgba(255, 68, 68, 0.5);
 }
 
+/* ===== ОСНОВНЫЕ СТИЛИ BODY ===== */
 body {
   font-family: 'Comfortaa', cursive;
   margin: 0;
-  background-color: var(--bg-main);
   font-weight: 400;
-  transition: background-color var(--transition-speed) ease;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  transition: all var(--transition-speed) ease;
+}
+
+/* Размытое фоновое изображение */
+body::before {
+  content: '';
+  position: fixed;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background-image: url('../images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: var(--bg-blur-intensity);
+  z-index: -2;
+}
+
+/* Затемняющий слой (меняется в зависимости от темы) */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-overlay);
+  z-index: -1;
+  transition: background var(--transition-speed) ease;
 }
 
 .app {
@@ -299,7 +337,9 @@ body {
   justify-content: center;
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
   z-index: 3000;
 }
 
@@ -318,7 +358,9 @@ body {
   overflow-y: auto;
   box-shadow: var(--shadow-confirm);
   transform: scale(1);
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease;
 }
 
 .stats-modal.cover_hidden .stats-modal__content {
@@ -441,7 +483,7 @@ body {
     margin-top: 0;
     gap: 8px;
   }
-  
+
   .action-btn {
     padding: 6px 10px;
     font-size: 11px;
@@ -1130,23 +1172,23 @@ h2 {
 }
 
 /* Цвета для активных категорий */
-.category_active[data-category="sport"] {
+.category_active[data-category='sport'] {
   background: #5051f9;
 }
 
-.category_active[data-category="food"] {
+.category_active[data-category='food'] {
   background: #4caf50;
 }
 
-.category_active[data-category="water"] {
+.category_active[data-category='water'] {
   background: #2196f3;
 }
 
-.category_active[data-category="study"] {
+.category_active[data-category='study'] {
   background: #ff9800;
 }
 
-.category_active[data-category="other"] {
+.category_active[data-category='other'] {
   background: #9e9e9e;
 }
 
@@ -1189,23 +1231,23 @@ h2 {
 }
 
 /* Цветовая индикация иконки привычки по категории */
-.menu__item[data-category="sport"] {
+.menu__item[data-category='sport'] {
   border-left: 3px solid #5051f9;
 }
 
-.menu__item[data-category="food"] {
+.menu__item[data-category='food'] {
   border-left: 3px solid #4caf50;
 }
 
-.menu__item[data-category="water"] {
+.menu__item[data-category='water'] {
   border-left: 3px solid #2196f3;
 }
 
-.menu__item[data-category="study"] {
+.menu__item[data-category='study'] {
   border-left: 3px solid #ff9800;
 }
 
-.menu__item[data-category="other"] {
+.menu__item[data-category='other'] {
   border-left: 3px solid #9e9e9e;
 }
 
@@ -1233,4 +1275,3 @@ h2 {
     font-size: 12px;
   }
 }
-
