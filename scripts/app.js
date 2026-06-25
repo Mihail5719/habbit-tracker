@@ -34,13 +34,15 @@ const page = {
  */
 async function loadData() {
   const habbitsString = localStorage.getItem('HABBIT_KEY');
-  
+
   if (!habbitsString) {
-    console.log('Данные в localStorage не найдены. Пробуем загрузить демо-данные...');
+    console.log(
+      'Данные в localStorage не найдены. Пробуем загрузить демо-данные...',
+    );
     try {
       // Пытаемся скачать файл demo.json
       const response = await fetch('data/demo.json');
-      
+
       if (response.ok) {
         const demoData = await response.json();
         habbits = demoData;
@@ -56,7 +58,7 @@ async function loadData() {
     }
     return;
   }
-  
+
   // Если данные в localStorage ЕСТЬ (старая логика)
   const habbitArray = JSON.parse(habbitsString);
   if (Array.isArray(habbitArray)) {
@@ -135,7 +137,12 @@ function rerenderMenu(activeHabbit) {
       // Кнопка редактирования
       const editBtn = document.createElement('button');
       editBtn.classList.add('menu__edit');
-      editBtn.innerHTML = '✏️';
+      editBtn.innerHTML = `
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+  </svg>
+`;
       editBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         editHabbit(habbit.id);
@@ -144,7 +151,12 @@ function rerenderMenu(activeHabbit) {
       // Кнопка удаления
       const deleteBtn = document.createElement('button');
       deleteBtn.classList.add('menu__delete');
-      deleteBtn.innerHTML = '×';
+      deleteBtn.innerHTML = `
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line>
+    <line x1="6" y1="6" x2="18" y2="18"></line>
+  </svg>
+`;
       deleteBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         deleteHabbit(habbit.id);
@@ -188,7 +200,12 @@ function rerenderContent(activeHabbit) {
     element.innerHTML = `<div class="habbit__day">День ${Number(index) + 1}</div>
                         <div class="habbit__comment">${activeHabbit.days[index].comment}</div>
                         <div class="habbit__actions">
-                            <button class="habbit__edit" data-day-index="${index}">✏️</button>
+                            <button class="habbit__edit" data-day-index="${index}">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+  </svg>
+</button>
                             <button class="habbit__delete" data-day-index="${index}">
                                 <img src="./images/delete.svg" alt="Удалить день ${Number(index) + 1}" />
                             </button>

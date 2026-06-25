@@ -31,12 +31,25 @@
                     <button class="filter-btn" data-filter="other">🎯</button>
                 </div>
                 <!-- ✅ Кнопка статистики -->
-                <button class="menu__stats" id="stats-btn" title="Статистика">📊 Статистика</button>
+                <button class="menu__stats" id="stats-btn" title="Статистика">
+                    <span class="btn-icon">📊</span>
+                    <span class="btn-text">Статистика</span>
+                </button>
+
                 <!-- ✅ Кнопки экспорта и импорта -->
                 <div class="menu__actions">
-                    <a href="guide.html" class="action-btn" target="_blank" title="Открыть инструкцию">📖 Инструкция</a>
-                    <button class="action-btn" id="export-btn" title="Скачать резервную копию">📤 Экспорт</button>
-                    <button class="action-btn" id="import-btn" title="Загрузить данные из файла">📥 Импорт</button>
+                    <a href="guide.html" class="action-btn" target="_blank" title="Открыть инструкцию">
+                        <span class="btn-icon">📖</span>
+                        <span class="btn-text">Инструкция</span>
+                    </a>
+                    <button class="action-btn" id="export-btn" title="Скачать резервную копию">
+                        <span class="btn-icon">📤</span>
+                        <span class="btn-text">Экспорт</span>
+                    </button>
+                    <button class="action-btn" id="import-btn" title="Загрузить данные из файла">
+                        <span class="btn-icon">📥</span>
+                        <span class="btn-text">Импорт</span>
+                    </button>
                     <!-- Скрытое поле для выбора файла -->
                     <input type="file" id="import-file" accept=".json" hidden>
                 </div>
